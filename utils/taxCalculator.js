@@ -4,7 +4,7 @@
  * Please refer to /models/constants.js for tax codes - types
  */
 
-exports.Calculator = (code, amount) => {
+exports.calculator = (code, amount) => {
   let calc = {
     1: foodTax(amount),
     2: tobaccoTax(amount),
