@@ -1,8 +1,9 @@
 'use strict'
 
-const c = require('../controllers/taxCalcCtrl')
+const tc = require('../controllers/taxCalcCtrl')
 const router = require('express').Router()
 
-router.get('/', c.taxCalc)
+router.get('/', tc.getAll)
+router.post('/', tc.inputBill)
 
 module.exports = router

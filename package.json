@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/ahmad-fajar/tax-calculator#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "pg": "^7.4.3"
   }
 }
