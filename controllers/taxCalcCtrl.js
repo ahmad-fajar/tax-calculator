@@ -21,8 +21,6 @@ exports.getAll = (req, res) => {
 
   client.query('SELECT * FROM bills')
   .then(rows => {
-    // res.send(rows.rows)
-    for (var k in rows) console.log(rows)
     rows.rows.forEach(r => {
       result.data.push(r)
       result.total_amount += r.amount
@@ -30,7 +28,11 @@ exports.getAll = (req, res) => {
       result.grand_total += r.total_amount
     })
     result.row_count = rows.rowCount
-    // res.send(result)
+
+    // parse decimals to 2 digits
+    result.total_tax_amount = parseFloat(result.total_tax_amount.toFixed(2))
+    result.grand_total = parseFloat(result.grand_total.toFixed(2))
+
     res.send({
       data: result,
       status: 'ok',
@@ -66,7 +68,7 @@ exports.inputBill = (req, res) => {
 let inputSingleBill = (req, res) => {
   let { name, tax_code } = req.body
   let amount = +req.body.amount
-  let tax_amount = tc.calculator(tax_code, amount)
+  let tax_amount = tc.calculator(+tax_code, amount)
   let total_amount = amount + tax_amount
 
   let query = {
@@ -76,6 +78,7 @@ let inputSingleBill = (req, res) => {
   }
   client.query(query)
   .then(() => {
+    console.log(req.body)
     res.send({
       data: req.body,
       status: 'ok',
@@ -96,8 +99,8 @@ let inputSingleBill = (req, res) => {
 // properties for object within the json is the same as
 // inputSingleBill method
 let inputMultipleBills = (req, res) => {
-  // let data = JSON.parse(req.body.data)
 
+  // parse JSON string into JSON
   let [ok, data] = (function(param) {
     try {
       return [true, JSON.parse(param)]
@@ -106,6 +109,7 @@ let inputMultipleBills = (req, res) => {
     }
   })(req.body.data)
 
+  // if bad JSON, abort process
   if (!ok) {
     res.send({
       data: {},
@@ -114,12 +118,13 @@ let inputMultipleBills = (req, res) => {
     })
   }
 
+  // prepare values for multiple db input
   let [value, tax_amount, total_amount] = ['', 0, 0]
   let valuesStrArr = []
   data.forEach(d => {
     if (d.name === undefined || d.tax_code === undefined || d.amount === undefined) return
     tax_amount = tc.calculator(d.tax_code, d.amount)
-    total_amount = d.amount + tax_amount
+    total_amount = +d.amount + +tax_amount
     value = `('${d.name}', ${d.tax_code}, '${types[d.tax_code]}', ${d.amount}, ${tax_amount}, ${total_amount})`
     valuesStrArr.push(value)
   })
@@ -142,5 +147,20 @@ let inputMultipleBills = (req, res) => {
       status: 'failed',
       error: e.stack
     })
+  })
+}
+
+exports.count = (req, res) => {
+  let { amount, type } = req.query
+
+  let tax = tc.calculator(parseInt(type), parseInt(amount))
+  let total = +amount + +tax
+  console.log(`${amount} | ${tax} | ${total}`)
+
+  res.send({
+    // tax: tax,
+    // total: total
+    tax: parseFloat(tax.toFixed(2)),
+    total: parseFloat(parseFloat(total).toFixed(2))
   })
 }
