@@ -21,7 +21,7 @@ function foodTax(amount) {
 
 function tobaccoTax(amount) {
   // 10 + (2% of value )
-  if (amount > 10) return amount * 0.02 
+  if (amount > 10) return (amount * 0.02) + 10
   else return 0
 }
 

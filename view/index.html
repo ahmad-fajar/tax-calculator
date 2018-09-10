@@ -27,19 +27,19 @@
                 </div>
 
                 <select name="tax_code" class="custom-select tax-type">
-                    <option>Choose type</option>
+                    <option value="0">Choose type</option>
                 </select>
 
                 <hr>
 
                 <div class="form-group">
                     <label class="col-form-label col-form-label-sm" for="inputSmall">Tax</label>
-                    <input readonly class="tax form-control form-control-sm" type="text" placeholder="product" id="inputSmall">
+                    <input readonly class="tax form-control form-control-sm" type="text" placeholder="0" id="inputSmall">
                     <label class="col-form-label col-form-label-sm" for="inputSmall">Total</label>
-                    <input readonly class="total form-control form-control-sm" type="text" placeholder="12345" id="inputSmall">
+                    <input readonly class="total form-control form-control-sm" type="text" placeholder="0" id="inputSmall">
                 </div>
 
-                <button type="button" class="btn btn-danger">Clear</button>
+                <button id="clear" type="button" class="btn btn-danger">Clear</button>
                 <button id="submit-save" type="button" class="btn btn-success">Save</button>
             </form>
         </div>

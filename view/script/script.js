@@ -48,10 +48,12 @@ function buildGetAllLayout(d) {
         ${tableData}
       </tbody>
       <tfoot>
-        <th scope="row" colspan="4">Total</th>
-        <th scope="row">${d.total_amount}</th>
-        <th scope="row">${d.total_tax_amount}</th>
-        <th scope="row">${d.grand_total}</th>
+        <tr class="table-danger">
+          <th scope="row" colspan="4">Total</th>
+          <th scope="row">${d.total_amount}</th>
+          <th scope="row">${d.total_tax_amount}</th>
+          <th scope="row">${d.grand_total}</th>
+        </tr>
       </tfoot>
     </table> `
 
@@ -93,15 +95,29 @@ function countTax(type, amount) {
   })
 }
 
+function formFilled() {
+  let filled = $('.p-name').val() !== '' && $('.p-price').val() !== '' && $('.tax-type').val() !== '0'
+
+  if (filled) return true
+  else return false
+}
+
+function clearForm() {
+  $('.p-name').val('')
+  $('.p-price').val('')
+  $('.tax-type').val('0')
+  $('.tax').val('')
+  $('.total').val('')
+}
+
 function dropDownListener() {
 
   $(document).on('change', function() {
-    if (
-      $('.p-name').val() !== ''
-      && $('.p-price').val() !== ''
-      && !!parseInt($('.tax-type').val())
-    ) {
+    if (formFilled()) {
       let tax = countTax(parseInt($('.tax-type').val()), parseInt($('.p-price').val()))
+    } else if ($('.tax-type').val('0')) {
+      $('.tax').val('')
+      $('.total').val('')
     }
   })
 
@@ -114,14 +130,14 @@ function showTax(tax) {
 
 function saveBill() {
 
+  $('#clear').on('click', function() {
+    clearForm()
+  })
+
   $('#submit-save').on('click', function() {
-    alert('Submit')
+    // alert('Submit')
   
-    if (
-      $('.p-name').val() === ''
-      && $('.p-price').val() === ''
-      && !parseInt($('.tax-type').val())
-    ) {
+    if (!formFilled()) {
       alert('invalid input')
     }
   
@@ -139,7 +155,9 @@ function saveBill() {
     .then(res => {
       getAll()
     })
-    .catch(() => {})
+    .catch(() => {
+      alert('Error submitting data.\nPlease try again.')
+    })
   })
 
 }

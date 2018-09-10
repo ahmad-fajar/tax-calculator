@@ -78,7 +78,6 @@ let inputSingleBill = (req, res) => {
   }
   client.query(query)
   .then(() => {
-    console.log(req.body)
     res.send({
       data: req.body,
       status: 'ok',
@@ -155,7 +154,7 @@ exports.count = (req, res) => {
 
   let tax = tc.calculator(parseInt(type), parseInt(amount))
   let total = +amount + +tax
-  console.log(`${amount} | ${tax} | ${total}`)
+  // console.log(`${amount} | ${tax} | ${total}`)
 
   res.send({
     // tax: tax,

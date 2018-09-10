@@ -3,6 +3,10 @@
   font-size: 12pt;
 }
 
+.table th, .table td {
+  padding: 0.2em;
+}
+
 body {
   background: green;
   padding: 0;

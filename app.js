@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
   res.send('Hello world!')
 })
 
+// view route
+app.use('/view', express.static(__dirname + '/view'))
+
+// api routes
 app.use('/calc', taxCalc)
 app.use('/type', taxTypes)
 
