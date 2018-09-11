@@ -4,8 +4,8 @@
   "description": "Shopee BE Test",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "find ./ -name '*_test.js' | xargs mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,13 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "nodemon": "^1.18.4",
     "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "sinon": "^6.2.0"
   }
 }

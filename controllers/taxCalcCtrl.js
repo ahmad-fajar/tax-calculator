@@ -19,7 +19,7 @@ exports.getAll = (req, res) => {
     grand_total: 0
   }
 
-  client.query('SELECT * FROM bills')
+  client.query(`SELECT * FROM bills`)
   .then(rows => {
     rows.rows.forEach(r => {
       result.data.push(r)
@@ -47,7 +47,6 @@ exports.getAll = (req, res) => {
     })
   })
 }
-
 
 // save bill into db 
 // handler for simgle or multiple insert into db
@@ -111,7 +110,7 @@ let inputMultipleBills = (req, res) => {
   // if bad JSON, abort process
   if (!ok) {
     res.send({
-      data: {},
+      data: { row_count: 0 },
       status: 'failed',
       error: 'invalid json'
     })

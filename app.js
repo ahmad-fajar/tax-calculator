@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(bodyParser.json({ type: 'application/x-www-form-urlencoded' }))
 
-const taxCalc = require('./routes/taxCalcRoutes')
+const taxCalc = require('./routes/taxCalcRoutes') 
 const taxTypes = require('./routes/taxTypesRoutes')
 
 app.get('/', (req, res) => {
@@ -31,3 +31,6 @@ app.listen(port, (e) => {
   if (!e) console.log(`>>> App running at port ${port}...`)
   else console.log('>>> Error running app...')
 })
+
+// need to be imported for unit-test purpose
+module.exports = app
