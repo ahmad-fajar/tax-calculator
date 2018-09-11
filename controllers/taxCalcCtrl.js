@@ -9,6 +9,8 @@ const { types } = require('../models/constants')
 
 const client = new Client(dbCfg)
 client.connect()
+.then(() => console.log('>>> DB connected...'))
+.catch(e => console.log('>>> DB connection error\n', e.stack))
 
 // get all bill information
 exports.getAll = (req, res) => {

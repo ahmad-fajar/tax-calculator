@@ -199,18 +199,3 @@ describe('controller: taxCalcCtrl.inputMultipleBill', () => {
   })
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

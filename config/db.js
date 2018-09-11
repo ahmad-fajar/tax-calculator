@@ -2,8 +2,9 @@
 
 exports.dbCfg = {
   user: "postgres",
-  host: "localhost",
+  host: "db",
   database: "shopee",
-  password: null,
-  port: 5432
+  password: "postgres",
+  port: 5432,
+  statement_timeout: 1000
 };
