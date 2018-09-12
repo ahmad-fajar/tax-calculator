@@ -1,6 +1,7 @@
 # tax-calculator documentation
 
 Provides how-to-use for each endpoints
+
 | ***Endpoints*** | ***Method*** | ***Description*** |
 |-----------------|:------------:|-------------------|
 |`/`              | `GET`        | GUI for test/try other enpoints |
