@@ -72,6 +72,15 @@ let inputSingleBill = (req, res) => {
   let tax_amount = tc.calculator(+tax_code, amount)
   let total_amount = amount + tax_amount
 
+  // validation if tax_code not found
+  if (!types[tax_code]) {
+    res.send({
+      data: {},
+      status: 'failed',
+      error: 'invalid tax_code'
+    })
+  }
+
   let query = {
     name: 'input-bills',
     text: `INSERT INTO bills("name", "tax_code", "type", "amount", "tax_amount", "total_amount") VALUES($1, $2, $3, $4, $5, $6);`,
@@ -126,6 +135,15 @@ let inputMultipleBills = (req, res) => {
     // gives valid JSON structure but wrong properties
     if (d.name === undefined || d.tax_code === undefined || d.amount === undefined) return
 
+    // validation if tax_code not found
+    if (!types[d.tax_code]) {
+      res.send({
+        data: {},
+        status: 'failed',
+        error: 'invalid tax_code'
+      })
+    }
+
     tax_amount = tc.calculator(d.tax_code, d.amount)
     total_amount = +d.amount + +tax_amount
     value = `('${d.name}', ${d.tax_code}, '${types[d.tax_code]}', ${d.amount}, ${tax_amount}, ${total_amount})`
@@ -158,8 +176,8 @@ exports.count = (req, res) => {
   let { amount, type } = req.query
 
   let tax = tc.calculator(parseInt(type), parseInt(amount))
-  let total = +amount + +tax
-  // console.log(`${amount} | ${tax} | ${total}`)
+  let total = parseInt(amount) + +tax
+  console.log(`${amount} | ${tax} | ${total}`)
 
   res.send({
     // tax: tax,
