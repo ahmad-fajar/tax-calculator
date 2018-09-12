@@ -1,7 +1,8 @@
 'use strict'
 
 const { Client } = require('pg')
-const { dbCfg } = require('../config/db')
+// const { dbCfg } = require('../config/db')
+const { dbCfg } = require('../../config/db')
 
 const tc = require('../utils/taxCalculator')
 

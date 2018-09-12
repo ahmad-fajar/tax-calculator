@@ -6,7 +6,7 @@ const expect = require('chai').expect
 const should = require('chai').should()
 const sinon = require('sinon')
 
-const app = require('../app')
+const app = require('../../app')
 
 chai.use(chaiHttp)
 
