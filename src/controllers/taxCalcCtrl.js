@@ -1,7 +1,6 @@
 'use strict'
 
 const { Client } = require('pg')
-// const { dbCfg } = require('../config/db')
 const { dbCfg } = require('../../config/db')
 
 const tc = require('../utils/taxCalculator')
@@ -123,7 +122,10 @@ let inputMultipleBills = (req, res) => {
   let [value, tax_amount, total_amount] = ['', 0, 0]
   let valuesStrArr = []
   data.forEach(d => {
+    // additional validation should req.body.data
+    // gives valid JSON structure but wrong properties
     if (d.name === undefined || d.tax_code === undefined || d.amount === undefined) return
+
     tax_amount = tc.calculator(d.tax_code, d.amount)
     total_amount = +d.amount + +tax_amount
     value = `('${d.name}', ${d.tax_code}, '${types[d.tax_code]}', ${d.amount}, ${tax_amount}, ${total_amount})`
@@ -151,6 +153,7 @@ let inputMultipleBills = (req, res) => {
   })
 }
 
+// just for giving 'preview' about tax amount before submit
 exports.count = (req, res) => {
   let { amount, type } = req.query
 

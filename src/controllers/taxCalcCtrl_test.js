@@ -12,7 +12,7 @@ chai.use(chaiHttp)
 
 const request = chai.request(app).keepOpen()
 
-const { getAll, inputBill, inputMultipleBill } = require('./taxCalcCtrl')
+// dummy responses
 const {
   resObj
   , getAllBodyResp

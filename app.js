@@ -13,15 +13,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(bodyParser.json({ type: 'application/x-www-form-urlencoded' }))
 
+// route files
 const taxCalc = require('./src/routes/taxCalcRoutes') 
 const taxTypes = require('./src/routes/taxTypesRoutes')
 
-app.get('/', (req, res) => {
-  res.send('Hello world!')
-})
-
 // view route
-app.use('/view', express.static(__dirname + '/src/view'))
+app.use('/', express.static(__dirname + '/src/view'))
 
 // api routes
 app.use('/calc', taxCalc)
