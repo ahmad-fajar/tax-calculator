@@ -9,7 +9,7 @@
 /*
 exports.dbCfg = {
   user: "postgres",
-  host: "localhost",
+  host: "db",
   database: "shopee",
   password: "postgres",
   port: 5432,
@@ -24,7 +24,7 @@ exports.dbCfg = {
  */
 exports.dbCfg = {
   user: "postgres",
-  host: "localhost",
+  host: "db",
   database: "shopee",
   password: "postgres",
   port: 5432,
